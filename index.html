@@ -136,9 +136,19 @@
 
     /* ABOUT */
     #about { background: var(--bg2); }
-    .about-g { display: grid; grid-template-columns: 1.15fr 1fr; gap: 5rem; align-items: start; }
+    .about-g3 { display: grid; grid-template-columns: 1.2fr 280px 1fr; gap: 3.5rem; align-items: start; }
     .atext p { color: var(--text); margin-bottom: 1.2rem; font-size: 1rem; }
     .atext strong { color: var(--heading); font-weight: 600; }
+    .about-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; position: sticky; top: 6rem; }
+    .about-photo-frame {
+      width: 100%; aspect-ratio: 3/4; border-radius: var(--r);
+      overflow: hidden; border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .about-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(20%); transition: filter 0.3s; }
+    .about-photo:hover { filter: grayscale(0%); }
+    .about-photo-label { font-family: var(--serif); font-size: 0.85rem; color: var(--muted); text-align: center; }
+    .about-photo-label span { color: var(--accent); }
     .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
     .pill {
       font-size: 0.78rem; font-weight: 500; color: var(--text);
@@ -262,7 +272,8 @@
       .hero-card { display: grid; grid-template-columns: repeat(4,1fr); }
       .hc-stats { flex-direction: row; }
       .sec { padding: 4rem 1.5rem; }
-      .about-g, .yt-g, .contact-g { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-g3, .yt-g, .contact-g { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo-wrap { position: static; max-width: 300px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -331,7 +342,8 @@
   <div class="sec-in">
     <div class="eyebrow">Who I Am</div>
     <h2 class="stitle">Blue team analyst.<br>Educator. Defender.</h2>
-    <div class="about-g">
+    <div class="about-g3">
+      <!-- LEFT: Bio -->
       <div class="atext">
         <p>I'm <strong>Federico Castro</strong>, known across the cybersecurity community as <strong>FedX</strong>. I'm a CISSP-certified Security Analyst focused on Blue Team operations — alert triage, threat investigation, incident response, and remediation from detection all the way through containment and recovery.</p>
         <p>I thrive in the middle of the action: correlating events across SIEM platforms, hunting for indicators of compromise, and turning raw alerts into clear, decisive action. My approach is methodical but fast — because when something's happening on the network, speed and accuracy both matter.</p>
@@ -352,6 +364,14 @@
           <span class="pill">EN · ES · PT</span>
         </div>
       </div>
+      <!-- MIDDLE: Photo -->
+      <div class="about-photo-wrap">
+        <div class="about-photo-frame">
+          <img src="photo.png" alt="Federico Castro — FedX" class="about-photo"/>
+        </div>
+        <div class="about-photo-label">Federico Castro <span>· FedX</span></div>
+      </div>
+      <!-- RIGHT: Credentials -->
       <div class="creds">
         <div class="cred"><div class="cred-icon">🛡️</div><div><div class="cred-name">CISSP</div><div class="cred-desc">Certified Information Systems Security Professional — ISC²</div></div></div>
         <div class="cred"><div class="cred-icon">🔵</div><div><div class="cred-name">Blue Team Operations</div><div class="cred-desc">Triage · Investigation · Containment · Remediation</div></div></div>
@@ -500,9 +520,9 @@
             <div class="clink-icon ic-yt">▶️</div>
             <div><div class="clink-label">YouTube</div><div class="clink-val">@The-FedX-Channel</div></div>
           </a>
-          <a href="/cdn-cgi/l/email-protection#0c6a6968744c6a696874226f6f" class="clink">
+          <a href="mailto:fedx@fedx.cc" class="clink">
             <div class="clink-icon ic-em">✉️</div>
-            <div><div class="clink-label">Email</div><div class="clink-val"><span class="__cf_email__" data-cfemail="8debe8e9f5cdebe8e9f5a3eeee">[email&#160;protected]</span></div></div>
+            <div><div class="clink-label">Email</div><div class="clink-val">fedx@fedx.cc</div></div>
           </a>
         </div>
       </div>
