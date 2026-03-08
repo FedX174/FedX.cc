@@ -184,7 +184,11 @@
       padding: 0.18rem 0.65rem; border-radius: 100px;
     }
     .tl-org { font-size: 0.8rem; font-weight: 500; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.65rem; }
-    .tl-desc { font-size: 0.93rem; color: var(--muted); line-height: 1.8; }
+    .tl-desc { font-size: 0.93rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.6rem; }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.6rem; }
+    .tl-list li { font-size: 0.88rem; color: var(--muted); line-height: 1.7; padding-left: 1.2rem; position: relative; }
+    .tl-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; top: 0.2rem; }
+    .tl-list li strong { color: var(--text); font-weight: 600; }
 
     /* PROJECTS */
     #projects { background: var(--bg2); }
@@ -391,25 +395,50 @@
   <div class="sec-in">
     <div class="eyebrow">Career</div>
     <h2 class="stitle">Work Experience</h2>
-    <p class="slead">A career built on hands-on security work — from infrastructure and SOC operations to GRC and organizational security strategy.</p>
+    <p class="slead">I didn't take a straight line into security — and that's exactly what makes my perspective different.</p>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-head"><div class="tl-role">Security Analyst — Blue Team</div><div class="tl-date">Current</div></div>
-        <div class="tl-org">Current Organization · Full-time</div>
-        <p class="tl-desc">Working the full Blue Team lifecycle — triaging alerts across SIEM platforms, conducting deep-dive threat investigations, identifying indicators of compromise, and driving remediation from detection through containment and recovery. Translating technical findings into clear, actionable guidance for stakeholders at every level.</p>
+        <div class="tl-head"><div class="tl-role">Security Analyst</div><div class="tl-date">Current</div></div>
+        <div class="tl-org">// Enterprise Security · Full-time</div>
+        <p class="tl-desc">This is where I live day to day — deep in Blue Team operations, working across threat intelligence, detection, incident response, and security awareness. Some things I'm proud of:</p>
+        <ul class="tl-list">
+          <li>Took a security awareness program that was barely reaching half the organization and turned it into full participation — and got phishing failure rates down below 22%.</li>
+          <li>Hunt threats by digging into adversary TTPs and infrastructure, connecting the dots between signals that others might miss.</li>
+          <li>Built and tuned custom detection logic to cut through the noise — less alert fatigue, more meaningful findings.</li>
+          <li>Use AI and automation to make threat analysis faster and more consistent without losing the human judgment that actually matters.</li>
+          <li>When incidents happen, I see them through from the first alert all the way to containment, remediation, and lessons learned.</li>
+          <li>Work closely with legal, IT, and compliance to make sure security isn't operating in a silo — it has to make sense for the whole business.</li>
+        </ul>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-head"><div class="tl-role">IT &amp; Security Technician</div><div class="tl-date">Previous</div></div>
-        <div class="tl-org">Previous Organization · Full-time</div>
-        <p class="tl-desc">Managed end-to-end IT infrastructure including structured cabling (Cat5e, fiber optics), CCTV system design and installation, and enterprise software deployment. Built foundational security practices while supporting operations across physical and digital environments.</p>
+        <div class="tl-head"><div class="tl-role">Director of IT &amp; Security</div></div>
+        <div class="tl-org">// IT Leadership · Full-time</div>
+        <p class="tl-desc">Before moving fully into security, I ran IT and security operations for a large multi-site organization. It was the kind of role where you had to wear every hat — and I learned a lot about how security actually has to work in the real world, not just on paper.</p>
+        <ul class="tl-list">
+          <li>Designed the network security architecture and firewall setup from the ground up.</li>
+          <li>Led a campus-wide fiber infrastructure overhaul that dramatically improved reliability and resilience.</li>
+          <li>Built out physical security and communications systems that the organization still relies on today.</li>
+          <li>Ran security training across all departments — getting non-technical people to actually care about security is a skill in itself.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head"><div class="tl-role">Installation Engineer</div></div>
+        <div class="tl-org">// Telecommunications · Full-time</div>
+        <p class="tl-desc">My technical foundation started here — hands-on, in the field, solving real problems under pressure. It taught me how infrastructure actually works at the physical layer, which gives me a perspective most analysts don't have.</p>
+        <ul class="tl-list">
+          <li>Installed and maintained fiber, broadband, and communications systems for enterprise and residential customers across Central Florida.</li>
+          <li>Mentored newer team members — breaking down complex technical processes into something anyone could follow.</li>
+          <li>Worked directly with engineering teams to streamline processes and reduce errors in the field.</li>
+        </ul>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-head"><div class="tl-role">Cybersecurity Educator &amp; Content Creator</div><div class="tl-date">Ongoing</div></div>
-        <div class="tl-org">FedX Cyber Channel · YouTube</div>
-        <p class="tl-desc">Building a community-focused cybersecurity education channel covering Blue Team operations, security careers, and practical defender skills — bridging the gap between what's taught in school and what the industry actually demands.</p>
+        <div class="tl-org">// FedX Cyber Channel · YouTube</div>
+        <p class="tl-desc">Outside of the day job, I run the FedX Cyber Channel — a community built around real talk on Blue Team security, career growth, and the practical skills that formal education tends to skip over. If I've figured something out the hard way, I share it so others don't have to.</p>
       </div>
     </div>
   </div>
@@ -520,9 +549,9 @@
             <div class="clink-icon ic-yt">▶️</div>
             <div><div class="clink-label">YouTube</div><div class="clink-val">@The-FedX-Channel</div></div>
           </a>
-          <a href="mailto:fedx@fedx.cc" class="clink">
+          <a href="/cdn-cgi/l/email-protection#bddbd8d9c5fddbd8d9c593dede" class="clink">
             <div class="clink-icon ic-em">✉️</div>
-            <div><div class="clink-label">Email</div><div class="clink-val">fedx@fedx.cc</div></div>
+            <div><div class="clink-label">Email</div><div class="clink-val"><span class="__cf_email__" data-cfemail="93f5f6f7ebd3f5f6f7ebbdf0f0">[email&#160;protected]</span></div></div>
           </a>
         </div>
       </div>
@@ -558,6 +587,4 @@
   <div class="foot-copy">© 2025 Federico Castro · fedx.cc · Central Florida, FL</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.tar
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-
