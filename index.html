@@ -451,7 +451,7 @@
   <div class="sec-in">
     <div class="eyebrow">Work</div>
     <h2 class="stitle">Projects &amp; Highlights</h2>
-    <p class="slead">A selection of work spanning GRC implementation, security education, infrastructure, and community contributions.</p>
+    <p class="slead">A selection of work spanning Blue Team operations, security education, and community contributions.</p>
     <div class="pgrid">
       <div class="pcard">
         <div class="picon">🔎</div>
@@ -549,9 +549,9 @@
             <div class="clink-icon ic-yt">▶️</div>
             <div><div class="clink-label">YouTube</div><div class="clink-val">@The-FedX-Channel</div></div>
           </a>
-          <a href="/cdn-cgi/l/email-protection#bddbd8d9c5fddbd8d9c593dede" class="clink">
+          <a href="mailto:fedx@fedx.cc" class="clink">
             <div class="clink-icon ic-em">✉️</div>
-            <div><div class="clink-label">Email</div><div class="clink-val"><span class="__cf_email__" data-cfemail="93f5f6f7ebd3f5f6f7ebbdf0f0">[email&#160;protected]</span></div></div>
+            <div><div class="clink-label">Email</div><div class="clink-val">fedx@fedx.cc</div></div>
           </a>
         </div>
       </div>
@@ -587,4 +587,11 @@
   <div class="foot-copy">© 2025 Federico Castro · fedx.cc · Central Florida, FL</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), e.target.dataset.d || 0); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.tl-item, .pcard').forEach((el, i) => { el.dataset.d = (i % 3) * 100; obs.observe(el); });
+</script>
+</body>
+</html>
