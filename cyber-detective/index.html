@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cyber Detective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: playful classroom game show, loud enough for a projector, kind when you miss
+   IDEA: a detective's case file: each message is a piece of evidence to inspect
+   PICTURE: the message itself on a phone, with a magnifying-glass mascot who reacts
+   COLOUR and TYPE: sunny yellow field, ink black, coral "trick" and sky blue "safe"; Fredoka + Nunito
+   LAYOUT: title + mode tabs, then the evidence card large and centred, verdict buttons under it */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffd23f,#1c1a2b);--ink:light-dark(#17140f,#f6f1e4);--card:light-dark(#fffdf6,#2a2740);
+--muted:light-dark(#5a5240,#b9b2c9);--coral:#ff5a5f;--sky:#2f7cf6;--line:light-dark(#17140f,#f6f1e4);
+--soft:light-dark(#fff4c2,#25223a);--ok:#1f9d55}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 Nunito,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3,.f{font-family:Fredoka,Nunito,sans-serif;line-height:1.05;text-wrap:balance}
+.band{padding:clamp(18px,3vw,40px) max(4vw,14px);max-width:1100px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+h1{font-size:clamp(34px,5vw,52px);margin:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{font:600 17px Fredoka,sans-serif;padding:10px 18px;min-height:44px;border:3px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg)}
+button:focus-visible,input:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
+.stage{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:clamp(14px,3vw,36px);align-items:center;margin-top:22px}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-weight:800}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:16px;height:16px;border-radius:50%;border:3px solid var(--line)}
+.dot.y{background:var(--ok);border-color:var(--ok)}.dot.n{background:var(--coral);border-color:var(--coral)}.dot.c{background:var(--ink)}
+.score{font:700 22px Fredoka,sans-serif;white-space:nowrap}
+.mascot svg{width:100%;height:auto;display:block}
+.mascot.yay svg{animation:hop .6s}.mascot.oops svg{animation:shake .5s}
+@keyframes hop{30%{transform:translateY(-22px) rotate(-6deg)}60%{transform:translateY(0)}}
+@keyframes shake{20%,60%{transform:translateX(-10px) rotate(-4deg)}40%,80%{transform:translateX(10px) rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){.mascot svg{animation:none!important}}
+.ev{background:var(--card);border:4px solid var(--line);border-radius:26px;box-shadow:10px 10px 0 var(--line);padding:clamp(16px,2.5vw,28px);min-height:250px}
+.kind{font:600 15px Fredoka,sans-serif;display:inline-block;padding:4px 12px;border-radius:999px;background:var(--soft);border:2px solid var(--line);margin-bottom:14px}
+.from{font-weight:800;color:var(--muted);font-size:16px;overflow-wrap:anywhere}
+.subj{font:600 clamp(22px,2.6vw,28px) Fredoka,sans-serif;margin:6px 0 10px}
+.bubble{background:var(--soft);border:2px solid var(--line);border-radius:22px 22px 22px 6px;padding:14px 18px;font-size:clamp(18px,2.2vw,22px);font-weight:700;margin-top:8px}
+.pop{border:3px solid var(--line);border-radius:14px;overflow:hidden}
+.pop .bar{background:var(--coral);color:#fff;font:600 16px Fredoka,sans-serif;padding:8px 14px;display:flex;justify-content:space-between}
+.pop .bd{padding:16px 18px;font-size:clamp(18px,2.2vw,22px);font-weight:700}
+.link{color:var(--sky);text-decoration:underline;overflow-wrap:anywhere}
+.verd{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.big{font:700 clamp(20px,2.6vw,28px) Fredoka,sans-serif;min-height:72px;border:4px solid var(--line);border-radius:20px;cursor:pointer;color:#fff;box-shadow:6px 6px 0 var(--line);transition:transform .1s}
+.big:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--line)}
+.big:disabled{opacity:.45;cursor:default}
+.trick{background:var(--coral)}.safe{background:var(--sky)}
+.fb{margin-top:20px;background:var(--card);border:4px solid var(--line);border-radius:22px;padding:18px 22px}
+.fb h3{font-size:clamp(24px,3vw,32px);margin:0 0 8px}
+.fb ul{margin:8px 0 14px;padding-left:22px}.fb li{margin:4px 0}
+.next{font:700 20px Fredoka,sans-serif;min-height:56px;padding:0 26px;background:var(--ink);color:var(--bg);border:0;border-radius:16px;cursor:pointer}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px;margin:18px 0 22px}
+.rule{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:16px}
+.rule b{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:4px}
+.end h2{font-size:clamp(32px,4.5vw,48px);margin:6px 0}
+.hide{display:none!important}
+/* password power */
+.pw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3vw,36px);margin-top:22px;align-items:start}
+label{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:8px}
+#pwin{width:100%;font:700 22px Nunito,sans-serif;padding:14px 16px;min-height:56px;border:4px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink)}
+.warn{font-size:15px;color:var(--muted);margin:8px 0 16px}
+.meter{height:26px;border:4px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.meter i{display:block;height:100%;width:0;background:var(--coral);transition:width .3s}
+.result{background:var(--card);border:4px solid var(--line);border-radius:26px;box-shadow:10px 10px 0 var(--line);padding:24px;text-align:center}
+.result .lbl{font-weight:800;color:var(--muted)}
+#crack{font:700 clamp(32px,5vw,50px) Fredoka,sans-serif;margin:8px 0;overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-weight:800;font-size:15px;padding:6px 12px;border-radius:999px;border:2px solid var(--line);opacity:.4}
+.chip.on{opacity:1;background:var(--soft)}
+.tries{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.try{font:700 16px Nunito,sans-serif;padding:8px 14px;min-height:44px;border:3px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer}
+.tip{font-size:15px;color:var(--muted);margin-top:26px;text-align:center}
+@media(max-width:600px){.stage,.pw{grid-template-columns:1fr}.mascot{width:110px;margin:0 auto}.verd{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="band">
+<header>
+  <h1>Cyber Detective <span style="font-size:.5em;display:inline-block">Roblox edition</span></h1>
+  <div class="tabs" role="tablist">
+    <button class="tab" id="t1" role="tab" aria-selected="true">Phish or safe?</button>
+    <button class="tab" id="t2" role="tab" aria-selected="false">Password power</button>
+  </div>
+</header>
+
+<section id="game">
+  <div class="stage">
+    <div class="mascot" id="mascot">
+      <svg viewBox="0 0 160 200" aria-hidden="true">
+        <rect x="92" y="122" width="26" height="70" rx="12" transform="rotate(-32 105 157)" fill="#7a4a24" stroke="currentColor" stroke-width="5"/>
+        <circle cx="70" cy="74" r="62" fill="#17140f"/>
+        <circle cx="70" cy="74" r="50" fill="#bfe6ff" stroke="#fff" stroke-width="4"/>
+        <path d="M34 56a42 42 0 0 1 30-26" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none" opacity=".8"/>
+        <circle cx="52" cy="76" r="10" fill="#17140f"/><circle cx="88" cy="76" r="10" fill="#17140f"/>
+        <circle cx="55" cy="72" r="3.5" fill="#fff"/><circle cx="91" cy="72" r="3.5" fill="#fff"/>
+        <path id="mouth" d="M54 98q16 14 32 0" stroke="#17140f" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M30 22l40-14 40 14-40 10z" fill="#ff5a5f" stroke="#17140f" stroke-width="4" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hud"><div class="dots" id="dots"></div><div class="score" id="score">Score 0</div></div>
+      <div id="play">
+        <div class="ev" id="ev"></div>
+        <div class="verd">
+          <button class="big trick" id="bTrick">It's a trick!</button>
+          <button class="big safe" id="bSafe">It's safe</button>
+        </div>
+        <div class="fb hide" id="fb" aria-live="polite"></div>
+      </div>
+      <div class="end hide" id="end"></div>
+    </div>
+  </div>
+  <p class="tip">Teacher tip: have the class vote thumbs up (safe) or thumbs down (trick) before anyone clicks.</p>
+</section>
+
+<section id="pass" class="hide">
+  <div class="pw">
+    <div>
+      <label for="pwin">Type a pretend password</label>
+      <input id="pwin" type="text" autocomplete="off" spellcheck="false" placeholder="try: roblox">
+      <p class="warn">Never type a real password here, or anywhere someone could see it!</p>
+      <div class="meter"><i id="bar"></i></div>
+      <div class="chips" id="chips"></div>
+      <p style="font-weight:800;margin:22px 0 4px">Try these and watch the time jump:</p>
+      <div class="tries" id="tries"></div>
+    </div>
+    <div class="result">
+      <div class="lbl">A super-fast hacker computer could guess it in</div>
+      <div id="crack">...</div>
+      <div id="crackNote" style="font-weight:700"></div>
+    </div>
+  </div>
+  <p class="tip">The secret: long and silly beats short and tricky. A silly sentence like "NeonUnicornEatsPizza!42" is easy to remember and very hard to guess.</p>
+</section>
+</div>
+
+<script>
+{
+const Q=[
+ {k:'Website',pop:'FREE ROBUX GENERATOR',body:'Get 10,000 FREE Robux in 60 seconds! Just type your Roblox username AND password below. <span class="link">free-robux-now.xyz</span>',trick:true,
+  clues:['"Free Robux" generators are always fake','It wants your password, so it can steal your account','It is not the real roblox.com']},
+ {k:'Roblox friend request',from:'From: CoolKid_9921 (you have never met them)',body:'ur so good at this game!! add me. what school do u go to? what city do u live in?',trick:true,
+  clues:['A stranger asking where you go to school or live','Your real name, school, city and age stay private online','Do not answer. Block, report, and tell a grown-up']},
+ {k:'Brookhaven chat',from:'From: BuilderBee_77 (player in the server)',body:'gg! your house is so cool, love the pool',trick:false,
+  clues:['Just a nice comment about the game','No links, no passwords, no personal questions','Being friendly in game chat is fine']},
+ {k:'Discord message',from:'From: Roblox_Giveaway_Official (DM)',body:'YOU WON 5,000 ROBUX!! Log in at <span class="link">rob1ox-rewards.com</span> in the next 15 minutes to claim before they expire!',trick:true,
+  clues:['You did not enter any giveaway','Look closely: "rob1ox" uses the number 1, not the letter L','A countdown is a trick to make you hurry']},
+ {k:'Roblox settings',from:'Inside Roblox: Settings, then Security',sub:'Protect your account',body:'Turn on 2-Step Verification. We\'ll send a code to your parent\'s email whenever someone logs in from a new device.',trick:false,
+  clues:['It is inside the real Roblox app, not a message or a link','It makes your account safer and asks for nothing','Turn it on together with a parent']},
+ {k:'YouTube comment',from:'From: @BloxFruitsHacks',body:'FREE PERM FRUITS + AUTO-FARM!!! download my Blox Fruits script here: <span class="link">bf-script-free.exe</span>',trick:true,
+  clues:['"Scripts" and "exploits" often hide viruses','A strange .exe download can take over your computer','Cheating tools can also get your account banned for real']},
+ {k:'Adopt Me trade',from:'From: PetCollector_X (stranger)',body:'trade? give me your neon unicorn first and i\'ll send you TWO legendaries right after. trust me bro',trick:true,
+  clues:['"You go first, trust me" is the classic trade scam','Once you send it, they disappear','Only use the official trade window, where both sides confirm']},
+ {k:'Roblox chat',from:'From: Jake_Plays (met them in a game last week)',body:'roblox chat is boring. lets talk on a different app where nobody can see. dont tell ur parents ok?',trick:true,
+  clues:['Asking to move to a private app is a big red flag','"Don\'t tell your parents" means something is wrong','Tell a trusted grown-up right away. You will not be in trouble']},
+ {k:'Text message',from:'From: Sam (classmate, saved contact)',body:'hey its sam from class! like i said at lunch, my roblox name is Sam_Builds. add me!',trick:false,
+  clues:['From a friend you know in real life','You already talked about it at school','Nothing secret, no links, no passwords']},
+ {k:'Roblox message',from:'From: Roblox_Admin_Team (regular player account)',body:'WARNING: your account will be BANNED in 10 minutes for cheating. Reply with your password so we can check it.',trick:true,
+  clues:['Real admins never ask for your password. Never ever.','Scary ban threats are meant to make you panic','Real staff do not DM you from a normal player account']},
+ {k:'Roblox chat',from:'From: RichPlayer_500 (stranger)',body:'got a Roblox gift card? tell me the code on the back and i\'ll DOUBLE your Robux for free!',trick:true,
+  clues:['A gift card code is just like money','Nobody can "double" your Robux. They just keep the code','Gift card codes are only typed into the real Roblox site, with a grown-up']}
+];
+const $=id=>document.getElementById(id);
+let i=0,score=0,res=[];
+const mascot=$('mascot'),mouth=$('mouth');
+function face(happy){mouth.setAttribute('d',happy?'M54 98q16 14 32 0':'M54 106q16-12 32 0');}
+function dots(){ $('dots').innerHTML=Q.map((_,n)=>`<span class="dot ${res[n]===true?'y':res[n]===false?'n':n===i?'c':''}"></span>`).join(''); $('score').textContent='Score '+score+' / '+Q.length; }
+function show(){
+  const q=Q[i];
+  let h=`<span class="kind">Evidence ${i+1}: ${q.k}</span>`;
+  if(q.pop) h+=`<div class="pop"><div class="bar"><span>${q.pop}</span><span>x</span></div><div class="bd">${q.body}</div></div>`;
+  else { h+=`<div class="from">${q.from}</div>`; if(q.sub) h+=`<div class="subj">${q.sub}</div>`; h+=`<div class="bubble">${q.body}</div>`; }
+  $('ev').innerHTML=h; $('fb').classList.add('hide'); $('bTrick').disabled=$('bSafe').disabled=false; face(true); dots();
+}
+function answer(saidTrick){
+  const q=Q[i],right=saidTrick===q.trick; res[i]=right; if(right)score++;
+  $('bTrick').disabled=$('bSafe').disabled=true;
+  mascot.classList.remove('yay','oops'); void mascot.offsetWidth; mascot.classList.add(right?'yay':'oops'); face(right);
+  const head=right?(q.trick?'Nice catch, detective!':'Correct, that one is safe!'):(q.trick?'Sneaky! That was a trick.':'That one was actually safe.');
+  $('fb').innerHTML=`<h3 style="color:${right?'var(--ok)':'var(--coral)'}">${head}</h3><b>${q.trick?'Clues it was a trick:':'Why it is safe:'}</b><ul>${q.clues.map(c=>`<li>${c}</li>`).join('')}</ul><button class="next" id="nx">${i<Q.length-1?'Next evidence':'See results'}</button>`;
+  $('fb').classList.remove('hide'); dots(); $('nx').onclick=next; $('nx').focus();
+}
+function next(){ i++; if(i<Q.length) show(); else finish(); }
+function finish(){
+  $('play').classList.add('hide'); dots();
+  const rank=score>=9?'Master Cyber Detective':score>=6?'Super Sleuth':'Detective in Training';
+  $('end').innerHTML=`<span class="kind">Case closed</span><h2>${score} out of ${Q.length}: ${rank}!</h2>
+  <p style="font-weight:700">Every detective follows these four rules:</p>
+  <div class="rules">
+   <div class="rule"><b>Passwords are secret</b>Never share them, not with friends and not with "admins."</div>
+   <div class="rule"><b>Free Robux = scam</b>Free Robux, pets or "scripts" that need your login are always a trick.</div>
+   <div class="rule"><b>Keep you private</b>Your real name, school, city and age stay offline.</div>
+   <div class="rule"><b>Block, report, tell</b>Something feels weird? Tell a grown-up. You won't be in trouble.</div>
+  </div><button class="next" id="again">Play again</button>`;
+  $('end').classList.remove('hide'); face(score>=6); $('again').onclick=()=>{i=0;score=0;res=[];$('end').classList.add('hide');$('play').classList.remove('hide');show();};
+}
+$('bTrick').onclick=()=>answer(true); $('bSafe').onclick=()=>answer(false);
+show();
+
+// tabs
+function tab(n){ $('t1').setAttribute('aria-selected',n===1); $('t2').setAttribute('aria-selected',n===2); $('game').classList.toggle('hide',n!==1); $('pass').classList.toggle('hide',n!==2); }
+$('t1').onclick=()=>tab(1); $('t2').onclick=()=>{tab(2);$('pwin').focus();};
+
+// password power
+const common=['robux','robux123','noob','bloxfruits','adoptme','skibidi','password','123456','12345678','qwerty','abc123','iloveyou','111111','letmein','dragon','monkey','soccer','football','minecraft','roblox','fortnite','princess','pokemon','password1','123456789','admin'];
+const tries=['roblox','Robux123','R0bux!','adoptmepets','NeonUnicornEatsPizza!42','MyCatRulesBrookhavenAtNight'];
+$('tries').innerHTML=tries.map(t=>`<button class="try">${t}</button>`).join('');
+document.querySelectorAll('.try').forEach(b=>b.onclick=()=>{$('pwin').value=b.textContent;calc();});
+const units=[[31536e6,'thousand years'],[31536e3*1e6,'million years'],[31536e3*1e9,'billion years']];
+function fmt(s){
+  if(s<1) return ['Instantly!','Faster than a blink.'];
+  const yr=31536e3;
+  if(s>yr*1.4e10*1000) return ['Forever!','Longer than the universe has existed. Wow.'];
+  let out;
+  if(s<60) out=Math.round(s)+' seconds';
+  else if(s<3600) out=Math.round(s/60)+' minutes';
+  else if(s<86400) out=Math.round(s/3600)+' hours';
+  else if(s<yr) out=Math.round(s/86400)+' days';
+  else if(s<yr*1000) out=Math.round(s/yr)+' years';
+  else { let u=units[0]; for(const x of units) if(s>=x[0]) u=x; out=Math.round(s/u[0]).toLocaleString()+' '+u[1]; }
+  const note=s<3600?'Too easy. Make it longer!':s<yr?'Getting better, keep going!':'Super strong!';
+  return [out,note];
+}
+function calc(){
+  const p=$('pwin').value; const has={a:/[a-z]/.test(p),A:/[A-Z]/.test(p),n:/[0-9]/.test(p),s:/[^a-zA-Z0-9]/.test(p),L:p.length>=12};
+  $('chips').innerHTML=[['a','lowercase'],['A','UPPERCASE'],['n','numbers'],['s','symbols !@#'],['L','12+ letters']].map(([k,t])=>`<span class="chip ${has[k]?'on':''}">${t}</span>`).join('');
+  if(!p){$('crack').textContent='...';$('crackNote').textContent='Start typing!';$('bar').style.width='0';return;}
+  let pool=(has.a?26:0)+(has.A?26:0)+(has.n?10:0)+(has.s?33:0);
+  let sec=Math.pow(pool,p.length)/2/1e10;
+  const low=p.toLowerCase().replace(/[^a-z0-9]/g,'');
+  let [t,n]=fmt(sec);
+  if(common.includes(p.toLowerCase())||common.includes(low)){sec=0;t='Instantly!';n='This is on every hacker\'s list of popular passwords.';}
+  $('crack').textContent=t; $('crackNote').textContent=n;
+  const lg=Math.log10(sec+1); const w=Math.max(4,Math.min(100,lg/20*100));
+  $('bar').style.width=w+'%'; $('bar').style.background=lg<4?'var(--coral)':lg<9?'#f5a524':'var(--ok)';
+}
+$('pwin').addEventListener('input',calc); calc();
+}
+</script>
+</body>
+</html>
