@@ -61,6 +61,24 @@ button:focus-visible,input:focus-visible{outline:4px solid var(--sky);outline-of
 .rule b{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:4px}
 .end h2{font-size:clamp(32px,4.5vw,48px);margin:6px 0}
 .hide{display:none!important}
+/* defenders + badge */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:clamp(16px,4vw,48px);align-items:center;margin-top:22px}
+.ht{font-size:clamp(32px,4.5vw,48px);margin:4px 0 12px}
+.h3{font-size:clamp(22px,2.6vw,28px);margin:30px 0 4px}
+.lead{font-size:clamp(17px,1.8vw,20px);font-weight:600;max-width:62ch}
+.guide{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:14px 18px;margin-top:14px;box-shadow:6px 6px 0 var(--line)}
+.guide b{font:600 20px Fredoka,sans-serif;display:block}
+.shield{width:100%;height:auto}
+.big2 .chip{font-size:17px;padding:8px 16px}
+.bcard{background:var(--card);border:5px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:24px;text-align:center}
+.bsh{width:120px;height:auto}
+.bt{font:600 18px Fredoka,sans-serif;color:var(--muted);margin-top:6px}
+.bn{font:700 clamp(32px,5vw,48px) Fredoka,sans-serif;overflow-wrap:anywhere;line-height:1.1;margin:4px 0}
+.bs{font-weight:800;color:var(--ok);min-height:1.5em}
+.bl{text-align:left;font-weight:700;margin:12px auto;max-width:34ch;padding-left:24px}
+.bd{font-size:14px;color:var(--muted)}
+#bname{width:100%;font:700 22px Nunito,sans-serif;padding:14px 16px;min-height:56px;border:4px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink)}
+@media(max-width:600px){.hero{grid-template-columns:1fr}.shield{max-width:170px;margin:0 auto;display:block;order:-1}}
 /* password power */
 .pw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3vw,36px);margin-top:22px;align-items:start}
 label{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:8px}
@@ -85,12 +103,46 @@ label{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:8px}
 <header>
   <h1>Cyber Detective <span style="font-size:.5em;display:inline-block">Roblox edition</span></h1>
   <div class="tabs" role="tablist">
-    <button class="tab" id="t1" role="tab" aria-selected="true">Phish or safe?</button>
+    <button class="tab" id="t0" role="tab" aria-selected="true">Meet the defenders</button>
+    <button class="tab" id="t1" role="tab" aria-selected="false">Phish or safe?</button>
     <button class="tab" id="t2" role="tab" aria-selected="false">Password power</button>
+    <button class="tab" id="t3" role="tab" aria-selected="false">Get your badge</button>
   </div>
 </header>
 
-<section id="game">
+<section id="def">
+  <div class="hero">
+    <div>
+      <span class="kind">Before we start</span>
+      <h2 class="ht">Meet the cyber defenders</h2>
+      <p class="lead">Every day, sneaky people online try to break into computers, steal accounts and trick kids out of their stuff. Cyber defenders are the good guys who stop them. Today, <b>you</b> get to train like one.</p>
+      <div class="guide"><b>Your guide today: FedX</b>I'm a cyber defender. My job is finding the bad guys hiding inside computers and kicking them out before they cause trouble.</div>
+    </div>
+    <svg class="shield" viewBox="0 0 220 240" aria-hidden="true">
+      <path d="M110 12l86 30v62c0 62-38 104-86 124C62 208 24 166 24 104V42z" fill="#17140f"/>
+      <path d="M110 30l70 24v50c0 50-30 86-70 104-40-18-70-54-70-104V54z" fill="#2f7cf6"/>
+      <path d="M110 30l70 24v50c0 50-30 86-70 104z" fill="#1f5fd0"/>
+      <rect x="80" y="104" width="60" height="50" rx="10" fill="#ffd23f" stroke="#17140f" stroke-width="5"/>
+      <path d="M90 104V88a20 20 0 0 1 40 0v16" fill="none" stroke="#17140f" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="110" cy="124" r="7" fill="#17140f"/><rect x="106" y="126" width="8" height="16" rx="3" fill="#17140f"/>
+      <path d="M50 70a70 70 0 0 1 30-22" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".6"/>
+    </svg>
+  </div>
+  <h3 class="h3">Four kinds of defenders</h3>
+  <div class="rules">
+    <div class="rule"><b>The lookouts</b>They watch the alarms day and night. When something weird happens on a computer, they're the first to spot it.</div>
+    <div class="rule"><b>The detectives</b>They hunt for bad guys who are hiding, following clues before anything goes wrong. (That's me!)</div>
+    <div class="rule"><b>The firefighters</b>When an attack happens, they rush in, stop it from spreading, and fix what got broken.</div>
+    <div class="rule"><b>The builders</b>They design the locks, walls and passwords that keep bad guys out in the first place.</div>
+  </div>
+  <h3 class="h3">What do they protect?</h3>
+  <div class="chips big2"><span class="chip on">Hospitals</span><span class="chip on">Schools</span><span class="chip on">Banks</span><span class="chip on">Your favorite games</span><span class="chip on">Phones and tablets</span><span class="chip on">The lights in your house</span></div>
+  <h3 class="h3">You might already have defender skills</h3>
+  <p class="lead">Love puzzles? Always asking "why?" Notice tiny details other people miss? Good at teamwork in games? Those are exactly the skills cyber defenders use every day.</p>
+  <button class="next" id="goCase" style="margin-top:8px">Start your first case &rarr;</button>
+</section>
+
+<section id="game" class="hide">
   <div class="stage">
     <div class="mascot" id="mascot">
       <svg viewBox="0 0 160 200" aria-hidden="true">
@@ -138,6 +190,36 @@ label{font:600 20px Fredoka,sans-serif;display:block;margin-bottom:8px}
     </div>
   </div>
   <p class="tip">The secret: long and silly beats short and tricky. A silly sentence like "NeonUnicornEatsPizza!42" is easy to remember and very hard to guess.</p>
+</section>
+
+<section id="badge" class="hide">
+  <div class="pw">
+    <div>
+      <span class="kind">Case closed</span>
+      <h2 class="ht">Earn your badge</h2>
+      <p class="lead">You trained like a real cyber defender today. Type your name (or your class name) to get your official Cyber Detective badge.</p>
+      <label for="bname">Detective name</label>
+      <input id="bname" type="text" maxlength="28" autocomplete="off" placeholder="First name only">
+      <p class="warn">First name only. Real detectives keep their full name private!</p>
+    </div>
+    <div class="bcard" id="bcard">
+      <svg viewBox="0 0 220 240" aria-hidden="true" class="bsh">
+        <path d="M110 12l86 30v62c0 62-38 104-86 124C62 208 24 166 24 104V42z" fill="#17140f"/>
+        <path d="M110 30l70 24v50c0 50-30 86-70 104-40-18-70-54-70-104V54z" fill="#ffd23f"/>
+        <path d="M110 60l12 26 28 3-21 19 6 28-25-14-25 14 6-28-21-19 28-3z" fill="#ff5a5f" stroke="#17140f" stroke-width="4" stroke-linejoin="round"/>
+      </svg>
+      <div class="bt">Official Cyber Detective</div>
+      <div class="bn" id="bn">Your name here</div>
+      <div class="bs" id="bs"></div>
+      <ol class="bl">
+        <li>I keep my passwords secret.</li>
+        <li>Free Robux is always a trick.</li>
+        <li>I keep my real name, school and city private.</li>
+        <li>If something feels weird, I tell a grown-up.</li>
+      </ol>
+      <div class="bd" id="bd"></div>
+    </div>
+  </div>
 </section>
 </div>
 
@@ -198,15 +280,23 @@ function finish(){
    <div class="rule"><b>Free Robux = scam</b>Free Robux, pets or "scripts" that need your login are always a trick.</div>
    <div class="rule"><b>Keep you private</b>Your real name, school, city and age stay offline.</div>
    <div class="rule"><b>Block, report, tell</b>Something feels weird? Tell a grown-up. You won't be in trouble.</div>
-  </div><button class="next" id="again">Play again</button>`;
-  $('end').classList.remove('hide'); face(score>=6); $('again').onclick=()=>{i=0;score=0;res=[];$('end').classList.add('hide');$('play').classList.remove('hide');show();};
+  </div><button class="next" id="toBadge">Get your badge &rarr;</button> <button class="tab" id="again" style="margin-left:8px">Play again</button>`;
+  $('end').classList.remove('hide'); face(score>=6); $('toBadge').onclick=()=>{tab(3);$('bname').focus();}; $('again').onclick=()=>{i=0;score=0;res=[];$('end').classList.add('hide');$('play').classList.remove('hide');show();};
 }
 $('bTrick').onclick=()=>answer(true); $('bSafe').onclick=()=>answer(false);
 show();
 
 // tabs
-function tab(n){ $('t1').setAttribute('aria-selected',n===1); $('t2').setAttribute('aria-selected',n===2); $('game').classList.toggle('hide',n!==1); $('pass').classList.toggle('hide',n!==2); }
-$('t1').onclick=()=>tab(1); $('t2').onclick=()=>{tab(2);$('pwin').focus();};
+const secs=['def','game','pass','badge'];
+function tab(n){ secs.forEach((id,k)=>{ $('t'+k).setAttribute('aria-selected',k===n); $(id).classList.toggle('hide',k!==n); }); window.scrollTo(0,0); if(n===3) badge(); }
+$('t0').onclick=()=>tab(0); $('t1').onclick=()=>tab(1); $('t2').onclick=()=>{tab(2);$('pwin').focus();}; $('t3').onclick=()=>{tab(3);$('bname').focus();};
+$('goCase').onclick=()=>tab(1);
+function badge(){
+  const n=$('bname').value.trim(); $('bn').textContent=n||'Your name here';
+  $('bs').textContent=res.length===Q.length?('Solved '+score+' of '+Q.length+' cases'):'';
+  $('bd').textContent='Awarded '+new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+}
+$('bname').addEventListener('input',badge);
 
 // password power
 const common=['robux','robux123','noob','bloxfruits','adoptme','skibidi','password','123456','12345678','qwerty','abc123','iloveyou','111111','letmein','dragon','monkey','soccer','football','minecraft','roblox','fortnite','princess','pokemon','password1','123456789','admin'];
